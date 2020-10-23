@@ -135,7 +135,7 @@ RSpec.describe Admin::TenantsController, type: :controller, dbclean: :after_each
     end
 
     it 'should set some instance variables' do
-      expect(controller.instance_variable_get(:@years)).to eq([2020])
+      expect(controller.instance_variable_get(:@years)).to eq([Enterprises::BenefitYear.first.calendar_year])
       expect(controller.instance_variable_get(:@tenant)).to eq(tenant)
       expect(controller.instance_variable_get(:@products)).to eq(tenant.products.all)
     end
@@ -249,7 +249,7 @@ RSpec.describe Admin::TenantsController, type: :controller, dbclean: :after_each
 
     it 'should render template' do
       expect(response).to render_template('translations_show')
-    end    
+    end
   end
 
   describe 'GET #fetch_locales' do
@@ -272,7 +272,7 @@ RSpec.describe Admin::TenantsController, type: :controller, dbclean: :after_each
 
     it 'should render template' do
       expect(response).to render_template(partial: 'admin/tenants/_source_translations')
-    end    
+    end
   end
 
   describe 'GET #edit_translation' do

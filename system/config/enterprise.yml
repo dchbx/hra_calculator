@@ -2,8 +2,8 @@ key: :enterprise
 settings:
   - key: :owner_organization_name
     default: My Organization
-    aria_label: 
-    description: Name of the organization that manages Marketplaces hosted on this site 
+    aria_label:
+    description: Name of the organization that manages Marketplaces hosted on this site
     type: string
   - key: owner_account_name
     default: admin
@@ -14,7 +14,7 @@ namespaces:
     namespaces:
       - key: :benefit_years
         settings:
-          - key: :2020
+          - key: :2021
             default: 0.0978
             type: :float
-            description: For 2020 the factor is 0.0978 and should not be changed.
+            description: For 2021 the factor is 0.0978 and should not be changed.

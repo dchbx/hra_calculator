@@ -18,9 +18,9 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
     include_context 'setup tenant'
 
     let!(:product) do
-      product = FactoryBot.create(:products_health_product, tenant: tenant, application_period: Date.new(2020, 1, 1)..Date.new(2020, 12, 31))
-      product&.service_area&.update_attributes!(active_year: 2020)
-      product.premium_tables.each { |pt| pt&.rating_area&.update_attributes!(active_year: 2020) }
+      product = FactoryBot.create(:products_health_product, tenant: tenant, application_period: Date.new(Enterprises::BenefitYear.first.calendar_year, 1, 1)..Date.new(Enterprises::BenefitYear.first.calendar_year, 12, 31))
+      product&.service_area&.update_attributes!(active_year: Enterprises::BenefitYear.first.calendar_year)
+      product.premium_tables.each { |pt| pt&.rating_area&.update_attributes!(active_year: Enterprises::BenefitYear.first.calendar_year) }
       product
     end
 
@@ -31,7 +31,7 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
 
         let(:valid_params) do
           { tenant: :ma, hra_result: { state: 'Massachusetts', dob: '2000-10-10', household_frequency: 'annually',
-            household_amount: 10_000, hra_type: 'ichra', start_month: '2020-1-1', end_month: '2020-12-1',
+            household_amount: 10_000, hra_type: 'ichra', start_month: "#{Enterprises::BenefitYear.first.calendar_year}-1-1", end_month: "#{Enterprises::BenefitYear.first.calendar_year}-12-1",
             hra_frequency: 'monthly', hra_amount: 100, zipcode: countyzip.zip, county: countyzip.county_name } }
         end
 
@@ -75,7 +75,7 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
       context 'invalid params' do
         let(:invalid_params) do
           { tenant: :ma, hra_result: { state: '', dob: '2000-10-10', household_frequency: 'annually',
-            household_amount: 10_000, hra_type: 'ichra', start_month: '2020-1-1', end_month: '2020-12-1',
+            household_amount: 10_000, hra_type: 'ichra', start_month: "#{Enterprises::BenefitYear.first.calendar_year}-1-1", end_month: "#{Enterprises::BenefitYear.first.calendar_year}-12-1",
             hra_frequency: 'monthly', hra_amount: 100, zipcode: countyzip.zip, county: countyzip.county_name } }
         end
 
@@ -121,9 +121,9 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
     include_context 'setup tenant'
 
     let!(:product) do
-      product = FactoryBot.create(:products_health_product, tenant: tenant, application_period: Date.new(2020, 1, 1)..Date.new(2020, 12, 31))
-      product&.service_area&.update_attributes!(active_year: 2020)
-      product.premium_tables.each { |pt| pt&.rating_area&.update_attributes!(active_year: 2020) }
+      product = FactoryBot.create(:products_health_product, tenant: tenant, application_period: Date.new(Enterprises::BenefitYear.first.calendar_year, 1, 1)..Date.new(Enterprises::BenefitYear.first.calendar_year, 12, 31))
+      product&.service_area&.update_attributes!(active_year: Enterprises::BenefitYear.first.calendar_year)
+      product.premium_tables.each { |pt| pt&.rating_area&.update_attributes!(active_year: Enterprises::BenefitYear.first.calendar_year) }
       product
     end
 
@@ -138,7 +138,7 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
 
         let(:valid_params) do
           { tenant: :ny, hra_result: { state: 'New York', dob: '2000-10-10', household_frequency: 'annually',
-            household_amount: 10_000, hra_type: 'ichra', start_month: '2020-1-1', end_month: '2020-12-1',
+            household_amount: 10_000, hra_type: 'ichra', start_month: "#{Enterprises::BenefitYear.first.calendar_year}-1-1", end_month: "#{Enterprises::BenefitYear.first.calendar_year}-12-1",
             hra_frequency: 'monthly', hra_amount: 100, county: countyzip.county_name } }
         end
 
@@ -183,7 +183,7 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
       context 'invalid params' do
         let(:invalid_params) do
           { tenant: :ma, hra_result: { state: '', dob: '2000-10-10', household_frequency: 'annually',
-            household_amount: 10_000, hra_type: 'ichra', start_month: '2020-1-1', end_month: '2020-12-1',
+            household_amount: 10_000, hra_type: 'ichra', start_month: "#{Enterprises::BenefitYear.first.calendar_year}-1-1", end_month: "#{Enterprises::BenefitYear.first.calendar_year}-12-1",
             hra_frequency: 'monthly', hra_amount: 100, zipcode: countyzip.zip, county: countyzip.county_name } }
         end
 
@@ -229,7 +229,7 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
     include_context 'setup tenant'
 
     let!(:product) do
-      product = FactoryBot.create(:products_health_product, tenant: tenant, application_period: Date.new(2020, 1, 1)..Date.new(2020, 12, 31), service_area_id: nil)
+      product = FactoryBot.create(:products_health_product, tenant: tenant, application_period: Date.new(Enterprises::BenefitYear.first.calendar_year, 1, 1)..Date.new(Enterprises::BenefitYear.first.calendar_year, 12, 31), service_area_id: nil)
       product.premium_tables.each { |pt| pt.update_attributes!(rating_area_id: nil) }
       product
     end
@@ -238,7 +238,7 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
       context 'valid params' do
         let(:valid_params) do
           { tenant: :dc, hra_result: { state: 'District of Columbia', dob: '2000-10-10', household_frequency: 'annually',
-            household_amount: 10_000, hra_type: 'ichra', start_month: '2020-1-1', end_month: '2020-12-1',
+            household_amount: 10_000, hra_type: 'ichra', start_month: "#{Enterprises::BenefitYear.first.calendar_year}-1-1", end_month: "#{Enterprises::BenefitYear.first.calendar_year}-1-1",
             hra_frequency: 'monthly', hra_amount: 100 } }
         end
 
@@ -282,7 +282,7 @@ RSpec.describe Api::HraResultsController, :dbclean => :after_each do
       context 'invalid params' do
         let(:invalid_params) do
           { tenant: :dc, hra_result: { state: '', dob: '2000-10-10', household_frequency: 'annually',
-            household_amount: 10_000, hra_type: 'ichra', start_month: '2020-1-1', end_month: '2020-12-1',
+            household_amount: 10_000, hra_type: 'ichra', start_month: "#{Enterprises::BenefitYear.first.calendar_year}-1-1", end_month: "#{Enterprises::BenefitYear.first.calendar_year}-12-1",
             hra_frequency: 'monthly', hra_amount: 100 } }
         end
 
