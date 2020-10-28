@@ -65,7 +65,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   ) {
     for (let _i = 0; _i < 12; _i++) {
       const next_date = new Date(
-        this.currentDate.getFullYear(),
+        this.currentDate.getFullYear() + 1,
         this.currentDate.getMonth() + _i,
         1
       );
