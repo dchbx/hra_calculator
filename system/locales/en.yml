@@ -8,7 +8,7 @@ en:
   getting_started.title: Getting Started
   getting_started.paragraph: |-
     <p>This tool is for people who have been offered a Health Reimbursement Arrangement (HRA) by an employer to help pay for health insurance for {{benefit_year}}. If you are offered certain types of HRAs, you may not qualify for a tax credit to help purchase a {{marketplace}} plan. This tool will help you determine how the HRA you're offered affects your eligibility for a tax credit and what to do next.</p>
-    <p>There are several types of HRAs, and only some of them require you to use this tool. If your HRA requires use of this tool, you should have received a clear written notice from your employer explaining the terms of the HRA. You will need that notice, along with information to help estimate your 2020 household income, when you are ready to use this tool.</p>
+    <p>There are several types of HRAs, and only some of them require you to use this tool. If your HRA requires use of this tool, you should have received a clear written notice from your employer explaining the terms of the HRA. You will need that notice, along with information to help estimate your {{benefit_year}} household income, when you are ready to use this tool.</p>
   getting_started.disclaimer: |-
     Support for this tool was provided by the Robert Wood Johnson Foundation. The views expressed here do not necessarily reflect
     the views of the Foundation.

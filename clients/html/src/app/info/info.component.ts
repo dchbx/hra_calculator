@@ -13,6 +13,7 @@ import { validateDate, validateDateFormat } from './date.validator';
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { JwtService } from '../authentication/jwt-refresh.service';
+import { HeaderFooterConfigurationService } from '../configuration/header_footer/header_footer_configuration.service';
 
 @Component({
   templateUrl: './info.component.html',
@@ -41,6 +42,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   isCountyDisabled = false;
   hostKey: string;
   private _hasToken = false;
+  benefit_year: number;
 
   formSubscription: Subscription;
 
@@ -61,11 +63,13 @@ export class InfoComponent implements OnInit, OnDestroy {
     private httpClient: HttpClient,
     private router: Router,
     private resultService: ResultService,
-    private config: NgbDatepickerConfig
+    private config: NgbDatepickerConfig,
+    public configurationService: HeaderFooterConfigurationService
   ) {
+    this.getBenefitYear();
     for (let _i = 0; _i < 12; _i++) {
       const next_date = new Date(
-        this.currentDate.getFullYear() + 1,
+        this.benefit_year,
         this.currentDate.getMonth() + _i,
         1
       );
@@ -165,6 +169,12 @@ export class InfoComponent implements OnInit, OnDestroy {
         this.enableHRAContributionAmount();
       }
     });
+  }
+
+  getBenefitYear() {
+    const year = this.configurationService.headerFooterConfig$.subscribe(
+      data => this.benefit_year = Number(data.benefit_year)
+    );
   }
 
   showTab(n) {
