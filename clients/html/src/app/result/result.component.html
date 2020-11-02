@@ -122,6 +122,24 @@
               </table>
             </div>
             <br />
+            <div *ngIf="result">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Plan Name</th>
+                    <th>Plan HOIS</th>
+                    <th>Plan Member Premium</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{result.data.plan_name}}</td>
+                    <td>{{result.data.hios_id}}</td>
+                    <td>{{result.data.member_premium}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div>
               <div>
                 <a class="btn btn-md ic-button" routerLink="/info">

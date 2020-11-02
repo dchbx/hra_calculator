@@ -70,6 +70,7 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.result = this.resultService.results;
+    console.log(this.result);
     if (this.result) {
       this.state = this.result.data.state;
       this.zipcode = this.result.data.zipcode;
