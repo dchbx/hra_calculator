@@ -6,7 +6,7 @@ require File.join(Rails.root, 'spec/shared_contexts/test_enterprise_admin_seed')
 RSpec.describe Api::ConfigurationsController, dbclean: :after_each do
   include_context 'setup enterprise admin seed'
   let!(:tenant_account) { FactoryBot.create(:account, email: 'admin@market_place.org', enterprise_id: enterprise.id) }
-  let(:header_footer_config_keys) { ["marketplace_name", "marketplace_website_url", "call_center_phone", "site_logo", "benefit_year", "colors"] }
+  let(:header_footer_config_keys) { ["marketplace_name", "marketplace_website_url", "call_center_phone", "site_logo", "benefit_year", "colors", "show_plan_in_results"] }
 
   describe 'tenant with age_rated and single geographic rating area' do
     let(:tenant_params) do

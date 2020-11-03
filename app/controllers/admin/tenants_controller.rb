@@ -60,7 +60,7 @@ class Admin::TenantsController < ApplicationController
   def update_translation
     @translation_entity  = Transactions::ConstructTranslation.new.with_step_args(build: [@tenant, :update_translation]).call(params).value!
     @translation_entity.editable_translation.value = params['translation']['value']
-    
+
     if @translation_entity.editable_translation.save
       @messages = { success: 'Successfully updated translation.' }
     else
@@ -71,7 +71,7 @@ class Admin::TenantsController < ApplicationController
   def plan_index
     @tenant = ::Tenants::Tenant.find(params.permit!['tenant_id'])
     @products = @tenant.products.all
-    @years = ::Enterprises::BenefitYear.all.pluck(:calendar_year)
+    @years = [@enterprise.benefit_years.where(is_active: true).pluck('calendar_year')]
   end
 
   def upload_plan_data
@@ -123,11 +123,11 @@ class Admin::TenantsController < ApplicationController
         options_attributes: [
           :id, :value, :supported_languages,
           child_options_attributes: [
-            :id, :value, 
+            :id, :value,
             child_options_attributes: [:id, :value]
           ]
         ],
-        features_attributes: [ 
+        features_attributes: [
           :id,
           options_attributes: [
             :id, :value,

@@ -12,6 +12,7 @@ class Options::Option
   field :value, type: String
   field :choices, type: Array
   field :content_type, type: String
+  field :is_active, type: Boolean
 
   field :aria_label, type: String
 
@@ -41,14 +42,15 @@ class Options::Option
       title: title,
       description: description,
       type: type,
-      value: value || default
+      value: value || default,
+      is_active: is_active
     }
   end
 
   def supported_languages=(val)
     site     = Sites::Site.where('options._id'=> self.id).first
     language = site.tenant.languages.options.where(key: val.to_sym).first
-    
+
     if child_options.by_key(language.key).blank?
       child_options.build(key: language.key, title: language.title, type: language.type)
     end

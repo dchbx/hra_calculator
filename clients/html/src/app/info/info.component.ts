@@ -172,7 +172,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
 
   getBenefitYear() {
-    const year = this.configurationService.headerFooterConfig$.subscribe(
+    this.configurationService.headerFooterConfig$.subscribe(
       data => this.benefit_year = Number(data.benefit_year)
     );
   }

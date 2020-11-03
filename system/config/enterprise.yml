@@ -18,3 +18,4 @@ namespaces:
             default: 0.0978
             type: :float
             description: For 2021 the factor is 0.0978 and should not be changed.
+            is_active: true

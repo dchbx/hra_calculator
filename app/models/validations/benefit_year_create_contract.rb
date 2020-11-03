@@ -7,6 +7,7 @@ module Validations
 
     rule(:calendar_year) do
       benefit_year = ::Enterprises::BenefitYear.all.where(calendar_year: value)
+      puts "Benefit Year #{benefit_year}"
       key.failure("is unique for BenefitYear") if benefit_year.present?
     end
   end

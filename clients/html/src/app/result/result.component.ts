@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultService } from '../result.service';
 import { Router } from '@angular/router';
+import { HeaderFooterConfigurationService } from '../configuration/header_footer/header_footer_configuration.service';
 
 @Component({
   selector: 'app-result',
@@ -43,9 +44,14 @@ export class ResultComponent implements OnInit {
   isAnnualIncome: boolean = false;
   isMonthlyHra: boolean = false;
   isTotalHra: boolean = false;
+  showPlanData = false;
 
   residence: String;
-  constructor(private resultService: ResultService, private router: Router) {}
+  constructor(
+    private resultService: ResultService,
+    private router: Router,
+    private configurationService: HeaderFooterConfigurationService
+  ) {}
 
   private _hra_type: string | null;
   private _hra_determination: string | null;
@@ -70,7 +76,9 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.result = this.resultService.results;
-    console.log(this.result);
+    this.configurationService.headerFooterConfig$.subscribe(
+      data => this.showPlanData = data.show_plan_in_results
+    );
     if (this.result) {
       this.state = this.result.data.state;
       this.zipcode = this.result.data.zipcode;

@@ -13,7 +13,7 @@ RSpec.shared_context 'setup enterprise admin seed', shared_context: :metadata do
       option.assign_attributes(option_hash)
 
       option.child_options.each do |setting|
-        new_enterprise.benefit_years = [FactoryBot.build(:benefit_year, expected_contribution: setting.default, calendar_year: setting.key.to_s.to_i, description: setting.description)]
+        new_enterprise.benefit_years = [FactoryBot.build(:benefit_year, expected_contribution: setting.default, calendar_year: setting.key.to_s.to_i, description: setting.description, is_active: true)]
       end
     end
     new_enterprise

@@ -9,7 +9,8 @@ module Transactions
     private
 
     def fetch(input, enterprise_id:)
-      @enterprise = ::Enterprises::Enterprise.find(enterprise_id)
+      puts "Input #{input}"
+      @enterprise = ::Enterprises::Enterprise.find(input['enterprise_id'])
 
       if @enterprise.blank?
         Failure({errors: ["Unable to find enterprise record with id: #{enterprise_id}"]})

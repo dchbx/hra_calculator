@@ -13,4 +13,5 @@ export interface HeaderFooterConfigurationResource {
   marketplace_website_url?: string | null;
   call_center_phone?: string | null;
   benefit_year?: string | null;
+  show_plan_in_results?: boolean | null;
 }

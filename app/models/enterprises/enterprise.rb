@@ -3,6 +3,7 @@ class Enterprises::Enterprise
   include Mongoid::Timestamps
 
   field :owner_organization_name, type: String
+  field :show_plan_calculation_in_client_ui, type: Boolean, default: false
 
   has_one   :owner_account,
             class_name: 'Account'

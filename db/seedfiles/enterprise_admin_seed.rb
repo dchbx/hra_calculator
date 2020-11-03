@@ -20,7 +20,7 @@ ResourceRegistry::AppSettings[:options].each do |option_hash|
     option = Options::Option.new(option_hash)
 
     option.child_options.each do |setting|
-      enterprise.benefit_years.create({ expected_contribution: setting.default, calendar_year: setting.key.to_s.to_i, description: setting.description })
+      enterprise.benefit_years.create({ expected_contribution: setting.default, calendar_year: setting.key.to_s.to_i, description: setting.description, is_active: setting.is_active })
     end
   end
 end

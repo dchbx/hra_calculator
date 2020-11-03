@@ -32,17 +32,24 @@ class Admin::EnterpriseController < ApplicationController
     redirect_to action: :show, id: params[:enterprise_id]
   end
 
-  # def benefit_year_create
-  #   create_benefit_year = Transactions::CreateBenefitYear.new
-  #   result = create_benefit_year.with_step_args(fetch: [enterprise_id: by_create_params[:id]]).call(by_create_params)
-
-  #   if result.success?
-  #     redirect_to :show
-  #   else
-  #     result.failure
-  #     # display errors on the same page
-  #   end
-  # end
+  def benefit_year_create
+     benefit_year = ::Enterprises::BenefitYear.all.where(calendar_year: params["admin"]["benefit_year"])
+     if benefit_year.present?
+       flash[:error] = "Benefit Year is already present"
+     else
+       new_benefit_year = @enterprise.benefit_years.new(expected_contribution: params["enterprises_enterprise"]["value"], calendar_year: params["admin"]["benefit_year"], description: '')
+       if new_benefit_year.valid?
+         if new_benefit_year.save
+           flash[:notice] = "Successfully updated"
+         else
+           flash[:error]  = new_benefit_year.errors.messages
+         end
+       else
+         flash[:error]  = new_benefit_year.errors.messages
+       end
+     end
+     redirect_to admin_enterprise_path(params["enterprise_id"])
+  end
 
   def benefit_year_update
     update_benefit_year = Transactions::UpdateBenefitYear.new
@@ -52,6 +59,21 @@ class Admin::EnterpriseController < ApplicationController
     else
       flash[:error]  = result.failure[:errors].first
     end
+    redirect_to admin_enterprise_path(params["enterprise_id"])
+  end
+
+  def make_benefit_year_active
+    current_benefit_years = @enterprise.benefit_years.where(:id.nin => [params["benefit_year"]])
+    current_benefit_years.present? ? current_benefit_years.map { |by| by.make_inactive } : nil
+    @enterprise.benefit_years.find(params["benefit_year"]).make_active
+    flash[:notice] = "Successfully updated Benefit Year"
+    redirect_to admin_enterprise_path(params["enterprise_id"])
+  end
+
+  def show_plan_premium_on_client_result
+    show_in_client = params["enterprises_enterprise"]["show_plan_calculation_in_client_ui"]
+    @enterprise.update(show_plan_calculation_in_client_ui: show_in_client)
+    flash[:notice] = "Update Client UI"
     redirect_to admin_enterprise_path(params["enterprise_id"])
   end
 

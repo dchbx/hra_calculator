@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       post :tenant_create
       post :benefit_year_create
       post :benefit_year_update
+      post :make_benefit_year_active
+      post :show_plan_premium_on_client_result
       get :purge_hra
     end
 
